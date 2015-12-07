@@ -1,6 +1,7 @@
 package com.example.hang.instagramclient;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,22 @@ public class InstagramPhotoAdaptor extends ArrayAdapter<InstagramPhoto> {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
         }
+        ImageView profileImageView = (ImageView)convertView.findViewById(R.id.ivProfileImage);
+        TextView tvUsername = (TextView)convertView.findViewById(R.id.tvUsername);
         TextView tvCaption = (TextView)convertView.findViewById(R.id.tvCaption);
+        TextView tvLikeCount = (TextView)convertView.findViewById(R.id.tvLikeCount);
+        TextView tvTimeStamp = (TextView)convertView.findViewById(R.id.tvTimpStamp);
         ImageView imageView = (ImageView)convertView.findViewById(R.id.ivPhoto);
 
-        tvCaption.setText(photo.username+ ": " + photo.caption);
+        tvCaption.setText(photo.caption);
+        tvUsername.setText(photo.username);
+        tvLikeCount.setText(photo.likesCount + " likes");
+        tvTimeStamp.setText(photo.timestamp);
+
+
+        profileImageView.setImageResource(0);
         imageView.setImageResource(0); // clears previous image
+        Picasso.with(getContext()).load(photo.profileImageUrl).into(profileImageView);
         Picasso.with(getContext()).load(photo.imageUrl).into(imageView);
         return convertView;
     }
