@@ -1,5 +1,6 @@
 package com.example.hang.instagramclient;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class PhotosActivity extends AppCompatActivity {
 
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotoAdaptor aPhotos;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,20 @@ public class PhotosActivity extends AppCompatActivity {
         ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         lvPhotos.setAdapter(aPhotos);
         fetchPopularPhotos();
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
     }
 
     private void fetchPopularPhotos(){
@@ -40,7 +56,7 @@ public class PhotosActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 JSONArray jsonArray = null;
-
+                aPhotos.clear();
                 try{
                     jsonArray = response.getJSONArray("data");
                     for (int i =0; i < jsonArray.length(); i++) {
@@ -59,6 +75,7 @@ public class PhotosActivity extends AppCompatActivity {
                     je.printStackTrace();
                 }
                 aPhotos.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
             }
 
             @Override

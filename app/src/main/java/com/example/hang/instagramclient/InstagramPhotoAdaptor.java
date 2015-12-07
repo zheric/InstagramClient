@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -31,7 +32,8 @@ public class InstagramPhotoAdaptor extends ArrayAdapter<InstagramPhoto> {
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
         }
-        ImageView profileImageView = (ImageView)convertView.findViewById(R.id.ivProfileImage);
+        //ImageView profileImageView = (ImageView)convertView.findViewById(R.id.ivProfileImage);
+        RoundedImageView profileImageView = (RoundedImageView)convertView.findViewById(R.id.ivProfileImage);
         TextView tvUsername = (TextView)convertView.findViewById(R.id.tvUsername);
         TextView tvCaption = (TextView)convertView.findViewById(R.id.tvCaption);
         TextView tvLikeCount = (TextView)convertView.findViewById(R.id.tvLikeCount);

@@ -2,18 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ivProfileImage"
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:maxHeight="30dp"
-        android:maxWidth="30dp"
-        />
+        android:maxHeight="20dp"
+        android:maxWidth="20dp"
+        android:id="@+id/ivProfileImage"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="20dip"
+        app:riv_border_width="1dip"
+        app:riv_border_color="#333333"
+        app:riv_mutate_background="true"
+        app:riv_tile_mode="repeat"
+        app:riv_oval="true" />
 
     <TextView
         android:layout_width="wrap_content"
